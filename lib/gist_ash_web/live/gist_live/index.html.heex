@@ -1,0 +1,27 @@
+<.header>
+    Gists
+    <:actions>
+        <.link patch={~p"/gists/new"}>
+            <.button>New Gist</.button>
+        </.link>
+    </:actions>
+</.header>
+
+<.table
+    id="gists"
+    rows={@streams.gists}
+>
+    <:col :let={{_id, gist}} label="Id"><%= gist.id %></:col>
+    <:col :let={{_id, gist}} label="Description"><%= gist.description %></:col>
+    <:col :let={{_id, gist}} label="Public"><%= gist.public %></:col>
+    <:col :let={{_id, gist}} label="Files"><%= Enum.count(gist.files) %></:col>
+
+    <:action :let={{_id, gist}}>
+        <.link patch={~p"/gists/#{gist}/edit"}>Edit</.link>
+    </:action>
+    <:action :let={{_id, gist}}>
+        <.link phx-click={JS.push("delete", value: %{id: gist.id})} data-confirm="Are you sure?">
+            Delete
+        </.link>
+    </:action>
+</.table>

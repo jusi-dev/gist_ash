@@ -1,0 +1,28 @@
+<.header>
+    Gist <%= @gist.id %>
+    <:actions>
+        <%= if @current_user && @current_user.id == @gist.user_id do %>
+        <.link patch={~p"/gists/#{@gist}/edit"}>
+            <.button>Edit gist</.button>
+        </.link>
+        <% end %>
+    </:actions>
+</.header>
+  
+<.list>
+    <:item title="Description"><%= @gist.description %></:item>
+</.list>
+
+<div class="mt-6">
+    <%= @gist.files |> Enum.count() %> files
+    <%= for file <- @gist.files do %>
+        <div class="mb-6">
+            <div class="bg-gray-100 p-4 rounded-t-lg flex justify-between items-center">
+                <h3 class="text-lg font-semibold"><%= file.filename %></h3>
+            </div>
+            <div class="bg-gray-50 p-4 rounded-b-lg">
+                <pre class="whitespace-pre-wrap"><%= file.content %></pre>
+            </div>
+        </div>
+    <% end %>
+</div>
