@@ -1,0 +1,41 @@
+<div>
+  <.header>
+    Edit Gist
+  </.header>
+
+  <.simple_form
+    for={@form}
+    id="gist-form"
+    phx-change="validate"
+    phx-submit="save"
+  >
+    <.input field={@form[:description]} type="text" label="Description" />
+    <.input field={@form[:public]} type="checkbox" label="Public" />
+    
+    <div class="space-y-4">
+      <label class="block text-sm font-semibold leading-6">Files</label>
+      <%= for {file, index} <- Enum.with_index(@files) do %>
+        <div class="flex gap-4">
+          <div class="flex-1">
+            <.input name={"form[files][#{index}][id]"} value={file["id"]} type="text" placeholder="fileid" />
+          </div>
+          <div class="flex-1">
+            <.input name={"form[files][#{index}][filename]"} value={file["filename"]} type="text" placeholder="Filename" />
+          </div>
+          <div class="flex-1">
+            <.input name={"form[files][#{index}][content]"} value={file["content"]} type="textarea" placeholder="Content" />
+          </div>
+          <button type="button" phx-click="remove-file" phx-value-index={index} class="px-2 py-1 text-sm text-red-600">
+            Remove
+          </button>
+        </div>
+      <% end %>
+    </div>
+
+    <button type="button" phx-click="add-file" class="text-sm text-blue-600">
+      Add File
+    </button>
+
+    <.button phx-disable-with="Saving...">Save Gist</.button>
+  </.simple_form>
+</div>

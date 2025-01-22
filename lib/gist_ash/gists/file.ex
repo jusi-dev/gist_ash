@@ -20,11 +20,16 @@ defmodule GistAsh.Gists.File do
   end
 
   actions do
-    defaults [:read, :update, :destroy]
+    defaults [:read, :destroy]
 
     create :create do
       primary? true
       accept [:filename, :content, :gist_id]
+    end
+
+    update :update do
+      primary? true
+      accept [:filename, :content]
     end
   end
 end

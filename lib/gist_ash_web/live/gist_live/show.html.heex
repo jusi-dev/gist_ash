@@ -2,9 +2,9 @@
     Gist <%= @gist.id %>
     <:actions>
         <%= if @current_user && @current_user.id == @gist.user_id do %>
-        <.link patch={~p"/gists/#{@gist}/edit"}>
-            <.button>Edit gist</.button>
-        </.link>
+            <.link patch={~p"/gists/#{@gist}/edit"}>
+                <.button>Edit gist</.button>
+            </.link>
         <% end %>
     </:actions>
 </.header>

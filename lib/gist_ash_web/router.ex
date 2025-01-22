@@ -37,7 +37,7 @@ defmodule GistAshWeb.Router do
       # on_mount {GistAshWeb.LiveUserAuth, :live_no_user}
       live "/gists", GistLive.Index, :index
       live "/gists/new", GistLive.New, :new
-      live "/gists/:id/edit", GistLive.Index, :edit
+      live "/gists/:id/edit", GistLive.Edit, :edit
       live "/gists/:id", GistLive.Show, :show
     end
   end

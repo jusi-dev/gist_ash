@@ -23,7 +23,7 @@ defmodule GistAsh.Gists.Gist do
   end
 
   actions do
-    defaults [:read, :update, :destroy]
+    defaults [:read, :destroy]
 
     create :create do
       primary? true
@@ -32,12 +32,22 @@ defmodule GistAsh.Gists.Gist do
 
       change manage_relationship(:files, type: :create)
     end
+
+    update :update do
+      primary? true
+      argument :files, {:array, :map}, allow_nil?: false
+      accept [:description, :public, :user_id]
+      require_atomic? false
+
+      change manage_relationship(:files, type: :direct_control)
+    end
   end
 
   policies do
     policy action_type(:read) do
+      authorize_if actor_attribute_equals(:id, :user_id)
       authorize_if expr(public == true)
-      authorize_if relates_to_actor_via(:user)
+      # authorize_if relates_to_actor_via(:user)
     end
 
     policy action_type([:create]) do
