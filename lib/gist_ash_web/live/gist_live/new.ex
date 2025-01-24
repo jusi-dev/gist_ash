@@ -4,13 +4,18 @@ defmodule GistAshWeb.GistLive.New do
 
 	@impl true
   def mount(_params, _session, socket) do
+    initial_data = %{
+      files: [%{"filename" => "", "content" => ""}]
+    }
+
 		form =
 			AshPhoenix.Form.for_create(
 				GistAsh.Gists.Gist,
 				:create,
 				api: GistAsh.Gists,
 				actor: socket.assigns.current_user,
-        relationships: [:files]
+        relationships: [:files],
+        data: initial_data
 			)
 			|> to_form()
 
