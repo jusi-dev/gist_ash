@@ -4,6 +4,8 @@ defmodule GistAsh.Gists.Gist do
     domain: GistAsh.Gists,
     authorizers: [Ash.Policy.Authorizer]
 
+  alias GistAsh.Gists.Changes
+
   postgres do
     table "gists"
     repo GistAsh.Repo
@@ -31,6 +33,7 @@ defmodule GistAsh.Gists.Gist do
       accept [:description, :public, :user_id]
 
       change manage_relationship(:files, type: :create)
+      change {Changes.Notifier, attribute: :foo}
     end
 
     update :update do
