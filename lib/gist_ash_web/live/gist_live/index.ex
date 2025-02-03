@@ -55,7 +55,10 @@ defmodule GistAshWeb.GistLive.Index do
 
   defp list_gists(socket) do
     page = socket.assigns.page
-    gists = GistAsh.Gists.Gist |> Ash.Query.load(:files) |> Ash.Query.page(limit: 20, offset: (page - 1) * 20) |> GistAsh.Gists.read!()
+    gists = GistAsh.Gists.Gist
+            |> Ash.Query.load(:files)
+            |> Ash.Query.page(limit: 20, offset: (page - 1) * 20)
+            |> GistAsh.Gists.read!()
     stream(socket, :gists, gists.results, reset: true)
   end
 end
