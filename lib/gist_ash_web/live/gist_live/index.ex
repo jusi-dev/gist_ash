@@ -56,9 +56,10 @@ defmodule GistAshWeb.GistLive.Index do
   defp list_gists(socket) do
     page = socket.assigns.page
     gists = GistAsh.Gists.Gist
+            # |> Ash.Query.filter(public == true or user_id == ^socket.assigns.current_user.id)
             |> Ash.Query.load(:files)
             |> Ash.Query.page(limit: 20, offset: (page - 1) * 20)
-            |> GistAsh.Gists.read!()
+            |> GistAsh.Gists.read!(actor: socket.assigns.current_user)
     stream(socket, :gists, gists.results, reset: true)
   end
 end

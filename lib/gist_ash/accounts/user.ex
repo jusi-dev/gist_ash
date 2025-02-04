@@ -6,6 +6,10 @@ defmodule GistAsh.Accounts.User do
     extensions: [AshAuthentication],
     data_layer: AshPostgres.DataLayer
 
+  code_interface do
+    define :register_with_password, args: [:email, :password, :password_confirmation]
+  end
+
   authentication do
     tokens do
       enabled? true

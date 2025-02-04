@@ -6,10 +6,10 @@ defmodule GistAsh.Gists do
       resource GistAsh.Gists.File
   end
 
-  def read!(query \\ GistAsh.Gists.Gist) do
+  def read!(query \\ GistAsh.Gists.Gist, opts \\ []) do
     query
     |> Ash.Query.for_read(:read)
-    |> Ash.read!(domain: __MODULE__)
+    |> Ash.read!(domain: __MODULE__, actor: Keyword.get(opts, :actor))
   end
 
 end
