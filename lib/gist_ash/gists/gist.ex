@@ -48,9 +48,9 @@ defmodule GistAsh.Gists.Gist do
 
   policies do
     policy action_type(:read) do
-      authorize_if actor_attribute_equals(:id, :user_id)
+      authorize_if relates_to_actor_via(:user)
       authorize_if expr(public == true)
-      # authorize_if relates_to_actor_via(:user)
+      # authorize_if always()
     end
 
     policy action_type([:create]) do

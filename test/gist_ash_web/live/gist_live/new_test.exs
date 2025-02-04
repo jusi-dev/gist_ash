@@ -54,7 +54,7 @@ defmodule GistAshWeb.GistLive.NewTest do
       |> Ash.read_first!()
 
 
-    IO.inspect(submitted_gist, label: "view")
+    # IO.inspect(submitted_gist, label: "view")
 
     # Verify response
     assert_redirected(view, ~p"/gists/#{submitted_gist.id}")
@@ -70,7 +70,7 @@ defmodule GistAshWeb.GistLive.NewTest do
 
     # Verify files
     files = Ash.load!(gist, :files)
-    IO.inspect(files, label: "files")
+    # IO.inspect(files, label: "files")
     assert length(files.files) == 1
     # assert files |> List.first() |> Map.get(:filename) == "test.exs"
     # assert files |> List.first() |> Map.get(:content) == file_content
